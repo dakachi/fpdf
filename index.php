@@ -11,17 +11,11 @@ function fpdf_load_fpdf() {
 	}
 }
 
-
-// function fpdf_add_pdf_meta_boxes()
-// {
-//     add_meta_box('pdf_printer', __('PDF Printer'), 'fpdf_printer_button', 'shop_order', 'side', 'high');
-// }
 add_action('woocommerce_after_order_itemmeta', 'fpdf_printer_button', 10, 3);
 
 function fpdf_printer_button($item_id, $item, $_product) {
 	global $post;
 	$order = wc_get_order($post->ID);
-
 	$product_id = $_product->get_id();
 
 ?>
