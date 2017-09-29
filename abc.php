@@ -12,7 +12,7 @@ $city = $billing['city'];
 $post_code = $billing['postcode'];
 
 $product_id = $_GET['product_id'];
-$url = get_the_post_thumbnail_url($product_id, 'full');
+$url = get_attached_file($product_id, 'full');
 
 $items = $order->get_items();
 $item = $items[$_GET['item_id']];
