@@ -14,6 +14,12 @@ $post_code = $billing['postcode'];
 $product_id = $_GET['product_id'];
 $url = get_the_post_thumbnail_url($product_id, 'full');
 
+$items = $order->get_items();
+$item = array_pop($items);
+
+$verhicle_make = $item['Vehicle Make'];
+$verhicle_registion = $item['Vehicle Registration'];
+
 class PDF extends FPDF
 {
 // Page header
@@ -49,13 +55,13 @@ $pdf->SetFont('Times', '', 12);
 
 $pdf->Image($url, 120, 15, 80);
 $pdf->SetFont('Arial', '', 18);
-$pdf->Text( 138, 47, '10 - MAR - 2018');
+$pdf->Text( 138, 47, $verhicle_registion);
 
 $pdf->SetFont('Arial', '', 22);
-$pdf->Text( 140, 64, 'W358 RRE');
+$pdf->Text( 140, 64, $verhicle_make);
 
 $pdf->SetFont('Arial', '', 10);
-$pdf->Text( 147, 82, '10 - MAR - 2018');
+$pdf->Text( 147, 82, $verhicle_registion);
 
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(0, 6, 'Mr. '.$first_name.' '. $last_name . ',', 0, 1);

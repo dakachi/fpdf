@@ -22,11 +22,12 @@ function fpdf_printer_button() {
 	global $post;
 	$order = wc_get_order($post->ID);
 	$items = $order->get_items();
+
 	$item = array_pop($items);
 	$product_id = $item['product_id'];
 
 ?>
 	<a target="_blank" href="<?php print wp_nonce_url(admin_url('?product_id='.$product_id.'&order_id=' . $post->ID), 'create_pdf', '_wp_nonce');?>"
-        class="button button-primary"><?php esc_html_e('Print', 'my-plugin-textdomain');?></a>
+        class="button button-primary"><?php esc_html_e('Print', 'fpdf');?></a>
 <?php
 }
