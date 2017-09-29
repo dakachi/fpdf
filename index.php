@@ -12,22 +12,20 @@ function fpdf_load_fpdf() {
 }
 
 
-function fpdf_add_pdf_meta_boxes()
-{
-    add_meta_box('pdf_printer', __('PDF Printer'), 'fpdf_printer_button', 'shop_order', 'side', 'high');
-}
-add_action('add_meta_boxes', 'fpdf_add_pdf_meta_boxes');
+// function fpdf_add_pdf_meta_boxes()
+// {
+//     add_meta_box('pdf_printer', __('PDF Printer'), 'fpdf_printer_button', 'shop_order', 'side', 'high');
+// }
+add_action('woocommerce_after_order_itemmeta', 'fpdf_printer_button', 10, 3);
 
-function fpdf_printer_button() {
+function fpdf_printer_button($item_id, $item, $_product) {
 	global $post;
 	$order = wc_get_order($post->ID);
-	$items = $order->get_items();
 
-	$item = array_pop($items);
-	$product_id = $item['product_id'];
+	$product_id = $_product->get_id();
 
 ?>
-	<a target="_blank" href="<?php print wp_nonce_url(admin_url('?product_id='.$product_id.'&order_id=' . $post->ID), 'create_pdf', '_wp_nonce');?>"
-        class="button button-primary"><?php esc_html_e('Print', 'fpdf');?></a>
+	<a target="_blank" href="<?php print wp_nonce_url(admin_url('?product_id='.$product_id.'&order_id=' . $post->ID.'&item_id=' . $item_id), 'create_pdf', '_wp_nonce');?>"
+        ><?php esc_html_e('Print', 'fpdf');?></a>
 <?php
 }

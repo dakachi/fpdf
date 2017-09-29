@@ -15,10 +15,10 @@ $product_id = $_GET['product_id'];
 $url = get_the_post_thumbnail_url($product_id, 'full');
 
 $items = $order->get_items();
-$item = array_pop($items);
+$item = $items[$_GET['item_id']];
 
 $verhicle_make = $item['Vehicle Make'];
-$verhicle_registion = $item['Vehicle Registration'];
+$verhicle_registion = date('d - M - Y', strtotime($item['Vehicle Registration']));
 
 class PDF extends FPDF
 {
